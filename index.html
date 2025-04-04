@@ -11,7 +11,7 @@
       box-sizing: border-box;
     }
     body {
-      background: black;
+      background: linear-gradient(to bottom, #000010, #0a0a2a);
       overflow: hidden;
       display: flex;
       justify-content: center;
@@ -22,289 +22,250 @@
       color: white;
       text-align: center;
       position: relative;
+      transition: background 1s ease;
     }
-    .snow-container {
+    .romantic-bg {
+      background: radial-gradient(ellipse at center, #ffdde1, #ee9ca7);
+    }
+    .stars {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      z-index: 0;
+    }
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle 2s infinite alternate;
+    }
+    @keyframes twinkle {
+      from { opacity: 0.2; }
+      to { opacity: 1; }
+    }
+    .timão-container {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       pointer-events: none;
-      z-index: 0;
+      z-index: 1;
     }
-    .snowflake {
+    .timão-icon {
       position: absolute;
-      width: 15px;
-      height: 15px;
-      background: url('foto/timão.png') no-repeat center;
+      width: 30px;
+      height: 30px;
+      background: url('fotos/timão.png') no-repeat center;
       background-size: contain;
-      opacity: 0.8;
-      animation: fall linear infinite;
+      animation: floatUp linear infinite;
     }
-    @keyframes fall {
-      from { transform: translateY(-10vh); opacity: 1; }
-      to { transform: translateY(100vh); opacity: 0; }
+    @keyframes floatUp {
+      from { transform: translateY(100vh); opacity: 1; }
+      to { transform: translateY(-10vh); opacity: 0; }
     }
-    .button, .colorful-button, .letter-button {
-      padding: 12px 35px;
-      border-radius: 25px;
-      font-size: 18px;
-      font-weight: bold;
-      text-transform: uppercase;
-      color: white;
-      margin-top: 15px;
-      cursor: pointer;
-      border: none;
+    .heart {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 32px;
+      animation: heartbeat 1s infinite;
       z-index: 10;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      animation: pulse 2s infinite;
     }
-    .button { background: #007bff; }
-    .colorful-button {
-      background: linear-gradient(45deg, #ff0000, #ff7300, #ffeb00, #48ff00, #00ffd5, #0048ff, #7a00ff, #ff00d4);
-      background-size: 400%;
-      animation: gradient 5s infinite linear, pulse 2s infinite;
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1) translateX(-50%); }
+      50% { transform: scale(1.2) translateX(-50%); }
     }
-    .letter-button {
-      background: pink;
-      color: black;
-      animation: pulse 1.5s infinite;
+    .chatbox {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 250px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 10px;
+      z-index: 20;
+      color: white;
+      font-size: 14px;
     }
-    .button:hover, .colorful-button:hover, .letter-button:hover {
+    .chatbox p {
+      margin-bottom: 6px;
+    }
+    .timeline {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.1);
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 14px;
+      line-height: 1.5;
+      z-index: 5;
+    }
+    .gallery {
+      position: relative;
+      top: 100px;
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+      z-index: 5;
+    }
+    .gallery img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 20px;
+      border: 3px solid white;
+      box-shadow: 0 0 15px pink;
+      transition: transform 0.3s;
+    }
+    .gallery img:hover {
       transform: scale(1.1);
-      box-shadow: 0 0 10px white;
+      box-shadow: 0 0 25px hotpink;
     }
-    @keyframes gradient {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    .button-group {
+      position: absolute;
+      bottom: 120px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      z-index: 10;
     }
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
+    .cute-button {
+      background-color: pink;
+      border: none;
+      border-radius: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(255, 192, 203, 0.5);
+      transition: all 0.3s ease;
     }
-    .loading-screen {
+    .cute-button:hover {
+      background-color: hotpink;
+      transform: scale(1.05);
+    }
+    .floating-presents {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.9);
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      font-size: 22px;
-      font-weight: bold;
-      display: none;
-      z-index: 100;
+      pointer-events: none;
+      z-index: 2;
     }
-    .loading-screen::after {
-      content: '';
-      width: 40px;
-      height: 40px;
-      border: 4px solid white;
-      border-top-color: transparent;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin-top: 15px;
-    }
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-    .gallery {
-      display: none;
-      flex-direction: row;
-      gap: 20px;
-      margin-top: 20px;
-      position: relative;
-      z-index: 10;
-    }
-    .gallery h2 {
+    .present {
       position: absolute;
-      top: -40px;
-      width: 100%;
-      text-align: center;
-      font-size: 22px;
-      font-weight: bold;
+      width: 32px;
+      height: 32px;
+      background: url('fotos/presente.png') no-repeat center;
+      background-size: contain;
+      animation: floatGift linear infinite;
     }
-    .gallery img {
-      width: 320px;
-      border-radius: 15px;
-      animation: float 3s ease-in-out infinite, glow 1.5s infinite alternate;
-    }
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-    @keyframes glow {
-      from { box-shadow: 0 0 10px rgba(255,255,255,0.3); }
-      to { box-shadow: 0 0 20px rgba(255,255,255,0.8); }
-    }
-    .credits {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      font-size: 14px;
-      padding: 5px 10px;
-      background: rgba(255,255,255,0.2);
-      border-radius: 10px;
-      z-index: 200;
-    }
-    /* Popup cartinha */
-    .popup-overlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0,0,0,0.6);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 999;
-      display: none;
-    }
-    .popup {
-      background: pink;
-      border: 4px solid white;
-      border-radius: 20px;
-      padding: 30px;
-      width: 80%;
-      max-width: 500px;
-      position: relative;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
-      animation: glow-border 2s ease-in-out infinite;
-      text-align: center;
-    }
-    @keyframes glow-border {
-      0%, 100% {
-        box-shadow: 0 0 10px rgba(255,255,255,0.5), 0 0 20px rgba(255,192,203,0.8);
-      }
-      50% {
-        box-shadow: 0 0 30px rgba(255,255,255,1), 0 0 40px rgba(255,192,203,1);
-      }
-    }
-    .close-btn {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      background: red;
-      color: white;
-      border: none;
-      font-size: 20px;
-      border-radius: 50%;
-      width: 30px;
-      height: 30px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: transform 0.2s ease;
-    }
-    .close-btn:hover {
-      transform: scale(1.2);
-    }
-    .popup-text h2 {
-      font-size: 24px;
-      margin-bottom: 10px;
-    }
-    .popup-text p {
-      font-size: 18px;
-      margin-bottom: 5px;
+    @keyframes floatGift {
+      from { transform: translateY(-10vh); opacity: 0; }
+      to { transform: translateY(110vh); opacity: 1; }
     }
   </style>
 </head>
 <body>
-  <div class="snow-container"></div>
-  <p class="credits">Feito por: Emerson</p>
-  <h1 id="title">Fiz isso com muito carinho, Juia 😭</h1>
-
-  <button class="button" id="advance-button">Clica aqui rsrs</button>
-  <div class="loading-screen" id="loading-screen">Tá carregando parça, pera aí...</div>
-  <button class="colorful-button" id="next-button" style="display: none;">CLIQUE AQUIII!!!!</button>
-  <div class="gallery" id="gallery">
-    <h2>Oia o nenezico kakakak</h2>
-    <img src="foto/julia1.jpg" alt="Juia comendo picolé">
-    <img src="foto/julia2.jpg" alt="Juia indo pro shopping">
+  <div class="stars" id="stars"></div>
+  <div class="timão-container" id="timão-container"></div>
+  <div class="floating-presents" id="floating-presents"></div>
+  <div class="heart">❤️</div>
+  <div class="chatbox">
+    <p><strong>Juia:</strong> esse site é só pra mim??? 🥺</p>
+    <p><strong>Emerson:</strong> SÓ PRA VOCÊ 😭❤️</p>
   </div>
-  <button class="letter-button" id="show-letter" style="display: none;">Cartinha 💌</button>
-
-  <!-- POPUP CARTA -->
-  <div class="popup-overlay" id="popup">
-    <div class="popup">
-      <button class="close-btn" id="closePopup">X</button>
-      <div class="popup-text">
-        <h2>Carta pra você, Juia...</h2>
-<p>Fiz esse site com todo carinho do mundo, só pra você.</p>
-<p>Queria mostrar, de um jeito diferente, o quanto nossa amizade é especial — pelo menos pra mim (não sei você kkkkk).</p>
-<p>Toda vez que a gente conversa, você sempre consegue tirar um sorriso meu, mesmo nos dias mais aleatórios.</p>
-<p>Então... me senti na obrigação de fazer algo só seu.<br>Um pedacinho da internet só pra você.</p>
-<p>Só espero que não conte pra ninguém... você sabe como as pessoas são, né?</p>
-<p>É isso. Nada demais, mas de coração.</p>
-<p><strong>Ass: Emerson</strong></p>
-      </div>
-    </div>
+  <div class="gallery">
+    <img src="fotos/julia1.jpg" alt="Foto 1" />
+    <img src="fotos/julia2.jpg" alt="Foto 2" />
   </div>
-
-  <audio id="background-music" loop>
-    <source src="musics/kids.mp3" type="audio/mpeg">
-    Seu navegador não suporta áudio.
-  </audio>
-
+  <div class="button-group">
+    <button class="cute-button" onclick="activateMagic()">Clique aqui e veja a mágica 💘</button>
+    <button class="cute-button" onclick="typeMessage('Você é muito importante para mim!')">Mensagem secreta ✨</button>
+  </div>
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const loadingScreen = document.getElementById("loading-screen");
-      const advanceButton = document.getElementById("advance-button");
-      const nextButton = document.getElementById("next-button");
-      const gallery = document.getElementById("gallery");
-      const showLetter = document.getElementById("show-letter");
-      const audio = document.getElementById("background-music");
+    function createTimao() {
+      const icon = document.createElement('div');
+      icon.classList.add('timão-icon');
+      icon.style.left = Math.random() * 100 + 'vw';
+      icon.style.animationDuration = (Math.random() * 4 + 3) + 's';
+      document.getElementById('timão-container').appendChild(icon);
+      setTimeout(() => icon.remove(), 7000);
+    }
+    setInterval(createTimao, 400);
 
-      const popup = document.getElementById("popup");
-      const closePopup = document.getElementById("closePopup");
+    function createStars() {
+      const starsContainer = document.getElementById('stars');
+      for (let i = 0; i < 150; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
+        star.style.left = Math.random() * 100 + 'vw';
+        star.style.top = Math.random() * 100 + 'vh';
+        star.style.animationDelay = Math.random() * 2 + 's';
+        starsContainer.appendChild(star);
+      }
+    }
+    createStars();
 
-      audio.volume = 0.01;
+    function activateMagic() {
+      document.body.classList.toggle('romantic-bg');
+    }
 
-      advanceButton.addEventListener("click", function() {
-        document.getElementById("title").style.display = "none";
-        advanceButton.style.display = "none";
-        loadingScreen.style.display = "flex";
-        audio.play().catch(console.log);
-        setTimeout(() => {
-          loadingScreen.style.display = "none";
-          nextButton.style.display = "block";
-        }, 3000);
-      });
+    function typeMessage(text) {
+      const existingMsg = document.getElementById('secret-message');
+      if (existingMsg) existingMsg.remove();
 
-      nextButton.addEventListener("click", function() {
-        nextButton.style.display = "none";
-        loadingScreen.style.display = "flex";
-        setTimeout(() => {
-          loadingScreen.style.display = "none";
-          gallery.style.display = "flex";
-          showLetter.style.display = "block";
-        }, 3000);
-      });
+      const msgBox = document.createElement('div');
+      msgBox.id = 'secret-message';
+      msgBox.style.position = 'fixed';
+      msgBox.style.top = '40%';
+      msgBox.style.left = '50%';
+      msgBox.style.transform = 'translate(-50%, -50%)';
+      msgBox.style.background = 'rgba(255,255,255,0.2)';
+      msgBox.style.padding = '20px';
+      msgBox.style.borderRadius = '10px';
+      msgBox.style.color = 'white';
+      msgBox.style.fontSize = '18px';
+      msgBox.style.zIndex = '100';
+      msgBox.style.backdropFilter = 'blur(4px)';
+      msgBox.style.boxShadow = '0 0 20px hotpink';
+      msgBox.style.whiteSpace = 'pre-wrap';
+      document.body.appendChild(msgBox);
 
-      showLetter.addEventListener("click", function() {
-        popup.style.display = "flex";
-      });
+      let index = 0;
+      msgBox.innerText = "";
 
-      closePopup.addEventListener("click", function() {
-        popup.style.display = "none";
-      });
-
-      function createSnowflake() {
-        const snowflake = document.createElement("div");
-        snowflake.classList.add("snowflake");
-        snowflake.style.left = Math.random() * 100 + "vw";
-        snowflake.style.animationDuration = (Math.random() * 3 + 2) + "s";
-        document.querySelector(".snow-container").appendChild(snowflake);
-        setTimeout(() => { snowflake.remove(); }, 5000);
+      function typeChar() {
+        if (index < text.length) {
+          msgBox.innerText += text[index++];
+          setTimeout(typeChar, 50);
+        } else {
+          setTimeout(() => msgBox.remove(), 5000);
+        }
       }
 
-      setInterval(createSnowflake, 200);
-    });
+      typeChar();
+    }
+
+    function createPresent() {
+      const present = document.createElement('div');
+      present.classList.add('present');
+      present.style.left = Math.random() * 100 + 'vw';
+      present.style.animationDuration = (Math.random() * 5 + 4) + 's';
+      document.getElementById('floating-presents').appendChild(present);
+      setTimeout(() => present.remove(), 9000);
+    }
+    setInterval(createPresent, 500);
   </script>
 </body>
 </html>
