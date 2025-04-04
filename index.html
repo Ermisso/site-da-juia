@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Site Top DMS KK</title>
   <style>
     * {
@@ -36,7 +36,7 @@
       position: absolute;
       width: 15px;
       height: 15px;
-      background: url('foto/timão.png') no-repeat center;
+      background: url('fotos/timão.png') no-repeat center;
       background-size: contain;
       opacity: 0.8;
       animation: fall linear infinite;
@@ -45,7 +45,7 @@
       from { transform: translateY(-10vh); opacity: 1; }
       to { transform: translateY(100vh); opacity: 0; }
     }
-    .button, .colorful-button {
+    .button, .colorful-button, .letter-button {
       padding: 12px 35px;
       border-radius: 25px;
       font-size: 18px;
@@ -56,22 +56,32 @@
       cursor: pointer;
       border: none;
       z-index: 10;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: pulse 2s infinite;
     }
-    .button {
-      background: #007bff;
-    }
-    .button:hover {
-      background: #0056b3;
-    }
+    .button { background: #007bff; }
     .colorful-button {
       background: linear-gradient(45deg, #ff0000, #ff7300, #ffeb00, #48ff00, #00ffd5, #0048ff, #7a00ff, #ff00d4);
       background-size: 400%;
-      animation: gradient 5s infinite linear;
+      animation: gradient 5s infinite linear, pulse 2s infinite;
+    }
+    .letter-button {
+      background: pink;
+      color: black;
+      animation: pulse 1.5s infinite;
+    }
+    .button:hover, .colorful-button:hover, .letter-button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 10px white;
     }
     @keyframes gradient {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
     }
     .loading-screen {
       position: fixed;
@@ -123,7 +133,15 @@
     .gallery img {
       width: 320px;
       border-radius: 15px;
-      box-shadow: 0px 4px 12px rgba(255,255,255,0.5);
+      animation: float 3s ease-in-out infinite, glow 1.5s infinite alternate;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    @keyframes glow {
+      from { box-shadow: 0 0 10px rgba(255,255,255,0.3); }
+      to { box-shadow: 0 0 20px rgba(255,255,255,0.8); }
     }
     .credits {
       position: absolute;
@@ -135,25 +153,98 @@
       border-radius: 10px;
       z-index: 200;
     }
+    /* Popup cartinha */
+    .popup-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      display: none;
+    }
+    .popup {
+      background: pink;
+      border: 4px solid white;
+      border-radius: 20px;
+      padding: 30px;
+      width: 80%;
+      max-width: 500px;
+      position: relative;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+      animation: glow-border 2s ease-in-out infinite;
+      text-align: center;
+    }
+    @keyframes glow-border {
+      0%, 100% {
+        box-shadow: 0 0 10px rgba(255,255,255,0.5), 0 0 20px rgba(255,192,203,0.8);
+      }
+      50% {
+        box-shadow: 0 0 30px rgba(255,255,255,1), 0 0 40px rgba(255,192,203,1);
+      }
+    }
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      background: red;
+      color: white;
+      border: none;
+      font-size: 20px;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: transform 0.2s ease;
+    }
+    .close-btn:hover {
+      transform: scale(1.2);
+    }
+    .popup-text h2 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    .popup-text p {
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
   </style>
 </head>
 <body>
   <div class="snow-container"></div>
   <p class="credits">Feito por: Emerson</p>
   <h1 id="title">Fiz isso com muito carinho, Juia 😭</h1>
-  <!-- Primeira parte: Tela inicial -->
+
   <button class="button" id="advance-button">Clica aqui rsrs</button>
-  <!-- Tela de carregamento (usada entre as partes) -->  
   <div class="loading-screen" id="loading-screen">Tá carregando parça, pera aí...</div>
-  <!-- Segunda parte: Botão colorido para avançar -->  
   <button class="colorful-button" id="next-button" style="display: none;">CLIQUE AQUIII!!!!</button>
-  <!-- Terceira parte: Galeria de fotos -->  
   <div class="gallery" id="gallery">
     <h2>Oia o nenezico kakakak</h2>
-    <img src="foto/julia1.jpg" alt="Juia comendo picolé">
-    <img src="foto/julia2.jpg" alt="Juia indo pro shopping">
+    <img src="fotos/julia1.jpg" alt="Juia comendo picolé">
+    <img src="fotos/julia2.jpg" alt="Juia indo pro shopping">
   </div>
-  
+  <button class="letter-button" id="show-letter" style="display: none;">Cartinha 💌</button>
+
+  <!-- POPUP CARTA -->
+  <div class="popup-overlay" id="popup">
+    <div class="popup">
+      <button class="close-btn" id="closePopup">X</button>
+      <div class="popup-text">
+        <h2>Carta pra você juia...</h2>
+        <p>Fiz esse site com todo amor e carinho para você!!!!</p>
+        <p>Para mostrar o quanto nossa amizade é legal eu acho, já não sei você kkkkkk</p>
+        <p>Toda vez que eu converso com você, você sempre tira um sorriso/risada meu, então me senti obrigado a fazer isso para vc ❤️</p>
+        <p>Espero que não conte isso para ninguém pois vc sabe oque iram falar dps...</p>
+        <p>Apenas isso mesmo.</p>
+        <p>Ass: Emerson</p>
+      </div>
+    </div>
+  </div>
+
   <audio id="background-music" loop>
     <source src="musics/kids.mp3" type="audio/mpeg">
     Seu navegador não suporta áudio.
@@ -165,21 +256,19 @@
       const advanceButton = document.getElementById("advance-button");
       const nextButton = document.getElementById("next-button");
       const gallery = document.getElementById("gallery");
+      const showLetter = document.getElementById("show-letter");
       const audio = document.getElementById("background-music");
 
-      // Define o volume da música para 50%
-      audio.volume = 0.5;
+      const popup = document.getElementById("popup");
+      const closePopup = document.getElementById("closePopup");
+
+      audio.volume = 0.01;
 
       advanceButton.addEventListener("click", function() {
         document.getElementById("title").style.display = "none";
         advanceButton.style.display = "none";
         loadingScreen.style.display = "flex";
-        
-        // Tenta iniciar a música após interação do usuário
-        audio.play().catch(function(error) {
-          console.log('Erro ao reproduzir a música:', error);
-        });
-
+        audio.play().catch(console.log);
         setTimeout(() => {
           loadingScreen.style.display = "none";
           nextButton.style.display = "block";
@@ -192,7 +281,16 @@
         setTimeout(() => {
           loadingScreen.style.display = "none";
           gallery.style.display = "flex";
+          showLetter.style.display = "block";
         }, 3000);
+      });
+
+      showLetter.addEventListener("click", function() {
+        popup.style.display = "flex";
+      });
+
+      closePopup.addEventListener("click", function() {
+        popup.style.display = "none";
       });
 
       function createSnowflake() {
@@ -203,6 +301,7 @@
         document.querySelector(".snow-container").appendChild(snowflake);
         setTimeout(() => { snowflake.remove(); }, 5000);
       }
+
       setInterval(createSnowflake, 200);
     });
   </script>
