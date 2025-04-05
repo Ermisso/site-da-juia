@@ -27,11 +27,11 @@
     .romantic-bg {
       background: radial-gradient(ellipse at center, #ffdde1, #ee9ca7);
     }
-    .stars {
+    .stars, .timão-container, .floating-presents {
       position: fixed;
       width: 100%;
       height: 100%;
-      background: transparent;
+      pointer-events: none;
       z-index: 0;
     }
     .star {
@@ -46,15 +46,6 @@
       from { opacity: 0.2; }
       to { opacity: 1; }
     }
-    .timão-container {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 1;
-    }
     .timão-icon {
       position: absolute;
       width: 30px;
@@ -66,6 +57,18 @@
     @keyframes floatUp {
       from { transform: translateY(100vh); opacity: 1; }
       to { transform: translateY(-10vh); opacity: 0; }
+    }
+    .present {
+      position: absolute;
+      width: 32px;
+      height: 32px;
+      background: url('foto/presente.png') no-repeat center;
+      background-size: contain;
+      animation: floatGift linear infinite;
+    }
+    @keyframes floatGift {
+      from { transform: translateY(-10vh); opacity: 0; }
+      to { transform: translateY(110vh); opacity: 1; }
     }
     .heart {
       position: absolute;
@@ -94,18 +97,6 @@
     }
     .chatbox p {
       margin-bottom: 6px;
-    }
-    .timeline {
-      position: absolute;
-      left: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(255,255,255,0.1);
-      padding: 15px;
-      border-radius: 10px;
-      font-size: 14px;
-      line-height: 1.5;
-      z-index: 5;
     }
     .gallery {
       position: relative;
@@ -138,41 +129,61 @@
       justify-content: center;
       z-index: 10;
     }
-    .cute-button {
-      background-color: pink;
+    .cute-button, .blue-button {
       border: none;
       border-radius: 20px;
       padding: 10px 20px;
       font-size: 16px;
       color: white;
       cursor: pointer;
-      box-shadow: 0 4px 15px rgba(255, 192, 203, 0.5);
       transition: all 0.3s ease;
+    }
+    .cute-button {
+      background-color: pink;
+      box-shadow: 0 4px 15px rgba(255, 192, 203, 0.5);
     }
     .cute-button:hover {
       background-color: hotpink;
       transform: scale(1.05);
     }
-    .floating-presents {
+    .blue-button {
+      background-color: #4da6ff;
+      box-shadow: 0 4px 15px rgba(77, 166, 255, 0.5);
+    }
+    .blue-button:hover {
+      background-color: #1e90ff;
+      transform: scale(1.05);
+    }
+    .pedido-popup {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 2;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(255,255,255,0.2);
+      padding: 30px;
+      border-radius: 15px;
+      color: white;
+      font-size: 20px;
+      z-index: 100;
+      text-align: center;
+      backdrop-filter: blur(5px);
+      box-shadow: 0 0 20px hotpink;
     }
-    .present {
-      position: absolute;
-      width: 32px;
-      height: 32px;
-      background: url('foto/presente.png') no-repeat center;
-      background-size: contain;
-      animation: floatGift linear infinite;
+    .pedido-popup button {
+      margin: 15px 10px 0;
+      padding: 10px 20px;
+      border-radius: 15px;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
     }
-    @keyframes floatGift {
-      from { transform: translateY(-10vh); opacity: 0; }
-      to { transform: translateY(110vh); opacity: 1; }
+    .pedido-popup .yes {
+      background-color: #28a745;
+      color: white;
+    }
+    .pedido-popup .no {
+      background-color: #dc3545;
+      color: white;
     }
   </style>
 </head>
@@ -192,7 +203,9 @@
   <div class="button-group">
     <button class="cute-button" onclick="activateMagic()">Clique aqui e veja a mágica 💘</button>
     <button class="cute-button" onclick="typeMessage('Você é muito importante para mim!')">Mensagem secreta ✨</button>
+    <button class="blue-button" onclick="mostrarPedido()">Prosseguir 💙</button>
   </div>
+
   <script>
     function createTimao() {
       const icon = document.createElement('div');
@@ -266,6 +279,28 @@
       setTimeout(() => present.remove(), 9000);
     }
     setInterval(createPresent, 500);
+
+    function mostrarPedido() {
+      const popup = document.createElement('div');
+      popup.classList.add('pedido-popup');
+      popup.innerHTML = `
+        <p>Quer namorar comigo? mesmo sendo não... espero que não estrague nossa amizade.</p>
+        <button class="yes" onclick="enviarResposta('sim')">Sim</button>
+        <button class="no" onclick="enviarResposta('nao')">Não</button>
+      `;
+      document.body.appendChild(popup);
+    }
+
+    function enviarResposta(resposta) {
+      fetch('https://discord.com/api/webhooks/1357895814059393094/G2nhrjEXHn-2UDIMooAiMimIYTIgMqg4ZUjU5SoEe2d2h2-jWSo2kS7iPxIgpuIHEu2F', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          content: `Resposta do pedido de namoro: ${resposta === 'sim' ? 'SIM 🥰💘' : 'NÃO 😢'}`
+        })
+      });
+      document.querySelector('.pedido-popup').remove();
+    }
   </script>
 </body>
 </html>
