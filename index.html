@@ -2,300 +2,225 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Site Top DMS KK</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Para Meu Amor 💖</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
     body {
-      background: linear-gradient(to bottom, #000010, #0a0a2a);
-      overflow: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      flex-direction: column;
-      font-family: Arial, sans-serif;
-      color: white;
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #ffd6e0, #ffb3c6, #ffc9de, #ffd6e0);
+      overflow-x: hidden;
+      color: #fff;
       text-align: center;
       position: relative;
-      transition: background 1s ease;
     }
-    .romantic-bg {
-      background: radial-gradient(ellipse at center, #ffdde1, #ee9ca7);
+
+    h1 {
+      margin-top: 100px;
+      font-size: 3em;
+      text-shadow: 2px 2px 8px #ff1493;
     }
-    .stars, .timão-container, .floating-presents {
+
+    p {
+      font-size: 1.5em;
+      max-width: 600px;
+      margin: 20px auto;
+      line-height: 1.6;
+    }
+
+    .stars {
       position: fixed;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
       pointer-events: none;
+      background: radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px);
+      background-size: 100px 100px;
+      animation: twinkle 5s infinite ease-in-out;
       z-index: 0;
     }
-    .star {
-      position: absolute;
-      width: 2px;
-      height: 2px;
-      background: white;
-      border-radius: 50%;
-      animation: twinkle 2s infinite alternate;
-    }
+
     @keyframes twinkle {
-      from { opacity: 0.2; }
-      to { opacity: 1; }
+      0%, 100% { opacity: 0.9; }
+      50% { opacity: 0.6; }
     }
-    .timão-icon {
-      position: absolute;
-      width: 30px;
-      height: 30px;
-      background: url('foto/timão.png') no-repeat center;
-      background-size: contain;
-      animation: floatUp linear infinite;
+
+    .heart-background {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://i.imgur.com/5M0KXz2.png');
+      background-size: 300px;
+      opacity: 0.05;
+      z-index: 0;
+      pointer-events: none;
     }
-    @keyframes floatUp {
-      from { transform: translateY(100vh); opacity: 1; }
-      to { transform: translateY(-10vh); opacity: 0; }
+
+    .heart-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
     }
-    .present {
-      position: absolute;
-      width: 32px;
-      height: 32px;
-      background: url('foto/presente.png') no-repeat center;
-      background-size: contain;
-      animation: floatGift linear infinite;
-    }
-    @keyframes floatGift {
-      from { transform: translateY(-10vh); opacity: 0; }
-      to { transform: translateY(110vh); opacity: 1; }
-    }
+
     .heart {
       position: absolute;
-      top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 32px;
-      animation: heartbeat 1s infinite;
-      z-index: 10;
+      width: 20px;
+      height: 20px;
+      background: url('https://cdn-icons-png.flaticon.com/512/833/833472.png') no-repeat center;
+      background-size: contain;
+      animation: float 10s infinite;
+      opacity: 0.6;
     }
-    @keyframes heartbeat {
-      0%, 100% { transform: scale(1) translateX(-50%); }
-      50% { transform: scale(1.2) translateX(-50%); }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) translateX(0);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) translateX(50px);
+        opacity: 0;
+      }
     }
-    .chatbox {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 250px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
-      padding: 10px;
-      z-index: 20;
-      color: white;
-      font-size: 14px;
-    }
-    .chatbox p {
-      margin-bottom: 6px;
-    }
+
     .gallery {
       position: relative;
-      top: 100px;
+      z-index: 2;
       display: flex;
-      gap: 20px;
       flex-wrap: wrap;
       justify-content: center;
-      z-index: 5;
+      margin: 40px auto;
+      gap: 20px;
     }
-    .gallery img {
+
+    .photo {
       width: 150px;
       height: 150px;
-      object-fit: cover;
-      border-radius: 20px;
-      border: 3px solid white;
-      box-shadow: 0 0 15px pink;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      overflow: hidden;
+      transform: rotate(-2deg);
       transition: transform 0.3s;
     }
-    .gallery img:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 25px hotpink;
+
+    .photo:hover {
+      transform: scale(1.1) rotate(1deg);
     }
-    .button-group {
-      position: absolute;
-      bottom: 120px;
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content: center;
-      z-index: 10;
+
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
-    .cute-button, .blue-button {
+
+    button {
+      margin-top: 30px;
+      padding: 15px 30px;
+      font-size: 1.2em;
       border: none;
-      border-radius: 20px;
-      padding: 10px 20px;
-      font-size: 16px;
+      background: #ff1493;
       color: white;
+      border-radius: 20px;
       cursor: pointer;
-      transition: all 0.3s ease;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+      transition: transform 0.2s;
+      z-index: 2;
+      position: relative;
     }
-    .cute-button {
-      background-color: pink;
-      box-shadow: 0 4px 15px rgba(255, 192, 203, 0.5);
-    }
-    .cute-button:hover {
-      background-color: hotpink;
+
+    button:hover {
       transform: scale(1.05);
     }
-    .blue-button {
-      background-color: #4da6ff;
-      box-shadow: 0 4px 15px rgba(77, 166, 255, 0.5);
-    }
-    .blue-button:hover {
-      background-color: #1e90ff;
-      transform: scale(1.05);
-    }
-    .pedido-popup {
+
+    .popup {
       position: fixed;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(255,255,255,0.2);
+      width: 80%;
+      max-width: 400px;
+      transform: translate(-50%, -50%) scale(0);
+      background: #fff;
+      color: #333;
       padding: 30px;
       border-radius: 15px;
-      color: white;
-      font-size: 20px;
-      z-index: 100;
-      text-align: center;
-      backdrop-filter: blur(5px);
-      box-shadow: 0 0 20px hotpink;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      z-index: 1000;
+      transition: transform 0.3s ease;
     }
-    .pedido-popup button {
-      margin: 15px 10px 0;
-      padding: 10px 20px;
-      border-radius: 15px;
-      border: none;
-      font-size: 16px;
-      cursor: pointer;
+
+    .popup.show {
+      transform: translate(-50%, -50%) scale(1);
     }
-    .pedido-popup .yes {
-      background-color: #28a745;
-      color: white;
+
+    .popup h2 {
+      margin-top: 0;
     }
-    .pedido-popup .no {
-      background-color: #dc3545;
+
+    .popup button {
+      background: #ff69b4;
       color: white;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
-  <div class="stars" id="stars"></div>
-  <div class="timão-container" id="timão-container"></div>
-  <div class="floating-presents" id="floating-presents"></div>
-  <div class="heart">❤️</div>
-  <div class="chatbox">
-    <p><strong>Juia:</strong> esse site é só pra mim??? 🥺</p>
-    <p><strong>Emerson:</strong> SÓ PRA VOCÊ 😭❤️</p>
+  <div class="heart-background"></div>
+  <div class="stars"></div>
+  <div class="heart-container" id="heart-container"></div>
+
+  <h1>Oi, meu amor 💘</h1>
+  <p>Esse site é só pra te lembrar o quanto você é especial pra mim. Obrigado por fazer parte da minha vida. Te amo infinito! 💖</p>
+
+  <button onclick="abrirCartinha()">Clique aqui 💌</button>
+
+  <div class="popup">
+    <h2>Uma cartinha pra você 💌</h2>
+    <p>Desde que você entrou na minha vida, tudo ficou mais colorido, mais leve e mais feliz. Te amo demais, e quero estar ao seu lado sempre! 💕</p>
+    <button onclick="fecharCartinha()">Fechar 💞</button>
   </div>
-  <div class="button-group">
-    <button class="cute-button" onclick="activateMagic()">Clique aqui e veja a mágica 💘</button>
-    <button class="cute-button" onclick="typeMessage('Você é muito importante para mim!')">Mensagem secreta ✨</button>
-    <button class="blue-button" onclick="mostrarPedido()">Prosseguir 💙</button>
+
+  <div class="gallery">
+    <div class="photo"><img src="fotos/julia1.jpg" alt="Julia 1"></div>
+    <div class="photo"><img src="fotos/julia2.jpg" alt="Julia 2"></div>
+    <div class="photo"><img src="fotos/julia3.jpg" alt="Julia 3"></div>
   </div>
+
+  <!-- Música de fundo -->
+  <audio id="musica" src="ju.mp3" loop></audio>
 
   <script>
-    function createTimao() {
-      const icon = document.createElement('div');
-      icon.classList.add('timão-icon');
-      icon.style.left = Math.random() * 100 + 'vw';
-      icon.style.animationDuration = (Math.random() * 4 + 3) + 's';
-      document.getElementById('timão-container').appendChild(icon);
-      setTimeout(() => icon.remove(), 7000);
+    const heartContainer = document.getElementById('heart-container');
+
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (5 + Math.random() * 5) + 's';
+      heartContainer.appendChild(heart);
+      setTimeout(() => heart.remove(), 10000);
     }
-    setInterval(createTimao, 400);
+    setInterval(createHeart, 500);
 
-    function createStars() {
-      const starsContainer = document.getElementById('stars');
-      for (let i = 0; i < 150; i++) {
-        const star = document.createElement('div');
-        star.classList.add('star');
-        star.style.left = Math.random() * 100 + 'vw';
-        star.style.top = Math.random() * 100 + 'vh';
-        star.style.animationDelay = Math.random() * 2 + 's';
-        starsContainer.appendChild(star);
-      }
-    }
-    createStars();
-
-    function activateMagic() {
-      document.body.classList.toggle('romantic-bg');
-    }
-
-    function typeMessage(text) {
-      const existingMsg = document.getElementById('secret-message');
-      if (existingMsg) existingMsg.remove();
-
-      const msgBox = document.createElement('div');
-      msgBox.id = 'secret-message';
-      msgBox.style.position = 'fixed';
-      msgBox.style.top = '40%';
-      msgBox.style.left = '50%';
-      msgBox.style.transform = 'translate(-50%, -50%)';
-      msgBox.style.background = 'rgba(255,255,255,0.2)';
-      msgBox.style.padding = '20px';
-      msgBox.style.borderRadius = '10px';
-      msgBox.style.color = 'white';
-      msgBox.style.fontSize = '18px';
-      msgBox.style.zIndex = '100';
-      msgBox.style.backdropFilter = 'blur(4px)';
-      msgBox.style.boxShadow = '0 0 20px hotpink';
-      msgBox.style.whiteSpace = 'pre-wrap';
-      document.body.appendChild(msgBox);
-
-      let index = 0;
-      msgBox.innerText = "";
-
-      function typeChar() {
-        if (index < text.length) {
-          msgBox.innerText += text[index++];
-          setTimeout(typeChar, 50);
-        } else {
-          setTimeout(() => msgBox.remove(), 5000);
-        }
-      }
-
-      typeChar();
-    }
-
-    function createPresent() {
-      const present = document.createElement('div');
-      present.classList.add('present');
-      present.style.left = Math.random() * 100 + 'vw';
-      present.style.animationDuration = (Math.random() * 5 + 4) + 's';
-      document.getElementById('floating-presents').appendChild(present);
-      setTimeout(() => present.remove(), 9000);
-    }
-    setInterval(createPresent, 500);
-
-    function mostrarPedido() {
-      const popup = document.createElement('div');
-      popup.classList.add('pedido-popup');
-      popup.innerHTML = `
-        <p>Quer namorar comigo? mesmo sendo não... espero que não estrague nossa amizade.</p>
-        <button class="yes" onclick="enviarResposta('sim')">Sim</button>
-        <button class="no" onclick="enviarResposta('nao')">Não</button>
-      `;
-      document.body.appendChild(popup);
-    }
-
-    function enviarResposta(resposta) {
-      fetch('https://discord.com/api/webhooks/1357895814059393094/G2nhrjEXHn-2UDIMooAiMimIYTIgMqg4ZUjU5SoEe2d2h2-jWSo2kS7iPxIgpuIHEu2F', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-          content: `Resposta do pedido de namoro: ${resposta === 'sim' ? 'SIM 🥰💘' : 'NÃO 😢'}`
-        })
+    function abrirCartinha() {
+      document.querySelector('.popup').classList.add('show');
+      const musica = document.getElementById('musica');
+      musica.volume = 0.2;
+      musica.play().catch(err => {
+        console.log("O navegador bloqueou o autoplay da música. Interaja com a página.");
       });
-      document.querySelector('.pedido-popup').remove();
+    }
+
+    function fecharCartinha() {
+      document.querySelector('.popup').classList.remove('show');
     }
   </script>
 </body>
