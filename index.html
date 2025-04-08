@@ -1,227 +1,182 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Para Meu Amor 💖</title>
+  <meta charset="UTF-8">
+  <title>Para você, julia...</title>
   <style>
-    body {
+    * {
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom, #ffd6e0, #ffb3c6, #ffc9de, #ffd6e0);
-      overflow-x: hidden;
-      color: #fff;
-      text-align: center;
+      background: linear-gradient(135deg, #ffafbd, #ffc3a0);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       position: relative;
     }
 
-    h1 {
-      margin-top: 100px;
-      font-size: 3em;
-      text-shadow: 2px 2px 8px #ff1493;
+    @keyframes gradientBG {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
     }
 
-    p {
-      font-size: 1.5em;
-      max-width: 600px;
-      margin: 20px auto;
-      line-height: 1.6;
-    }
-
-    .stars {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      background: radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px);
-      background-size: 100px 100px;
-      animation: twinkle 5s infinite ease-in-out;
-      z-index: 0;
-    }
-
-    @keyframes twinkle {
-      0%, 100% { opacity: 0.9; }
-      50% { opacity: 0.6; }
-    }
-
-    .heart-background {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      background-image: url('https://i.imgur.com/5M0KXz2.png');
-      background-size: 300px;
-      opacity: 0.05;
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    .heart-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    .heart {
+    .floating-heart {
       position: absolute;
       width: 20px;
       height: 20px;
-      background: url('https://cdn-icons-png.flaticon.com/512/833/833472.png') no-repeat center;
-      background-size: contain;
-      animation: float 10s infinite;
+      background: red;
+      transform: rotate(45deg);
+      animation: float 10s linear infinite;
       opacity: 0.6;
+    }
+
+    .floating-heart::before,
+    .floating-heart::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      border-radius: 50%;
+    }
+
+    .floating-heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .floating-heart::after {
+      left: -10px;
+      top: 0;
     }
 
     @keyframes float {
       0% {
-        transform: translateY(100vh) translateX(0);
+        bottom: -10%;
         opacity: 0;
       }
       50% {
         opacity: 1;
       }
       100% {
-        transform: translateY(-10vh) translateX(50px);
+        bottom: 110%;
         opacity: 0;
       }
     }
 
-    .gallery {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin: 40px auto;
-      gap: 20px;
-    }
-
-    .photo {
-      width: 150px;
-      height: 150px;
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-      overflow: hidden;
-      transform: rotate(-2deg);
-      transition: transform 0.3s;
-    }
-
-    .photo:hover {
-      transform: scale(1.1) rotate(1deg);
-    }
-
-    .photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    button {
-      margin-top: 30px;
-      padding: 15px 30px;
-      font-size: 1.2em;
+    .button {
+      padding: 20px 40px;
+      font-size: 24px;
+      background: #ff69b4;
       border: none;
-      background: #ff1493;
-      color: white;
       border-radius: 20px;
+      color: white;
       cursor: pointer;
-      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
       transition: transform 0.2s;
-      z-index: 2;
-      position: relative;
+      z-index: 10;
     }
 
-    button:hover {
+    .button:hover {
       transform: scale(1.05);
     }
 
     .popup {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      width: 80%;
-      max-width: 400px;
-      transform: translate(-50%, -50%) scale(0);
-      background: #fff;
-      color: #333;
+      display: none;
+      position: absolute;
+      background: white;
       padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-      z-index: 1000;
-      transition: transform 0.3s ease;
-    }
-
-    .popup.show {
-      transform: translate(-50%, -50%) scale(1);
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+      width: 300px;
+      z-index: 20;
     }
 
     .popup h2 {
       margin-top: 0;
+      color: #ff1493;
     }
 
-    .popup button {
-      background: #ff69b4;
+    .popup p {
+      margin-bottom: 20px;
+    }
+
+    .popup-buttons button {
+      padding: 10px 20px;
+      margin: 10px;
+      border: none;
+      border-radius: 10px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .yes {
+      background: #32cd32;
       color: white;
-      margin-top: 20px;
+    }
+
+    .no {
+      background: #dc143c;
+      color: white;
     }
   </style>
 </head>
 <body>
-  <div class="heart-background"></div>
-  <div class="stars"></div>
-  <div class="heart-container" id="heart-container"></div>
 
-  <h1>Oi, meu amor 💘</h1>
-  <p>Esse site é só pra te lembrar o quanto você é especial pra mim. Obrigado por fazer parte da minha vida. Te amo infinito! 💖</p>
+<!-- Corações flutuando -->
+<script>
+  for (let i = 0; i < 20; i++) {
+    const heart = document.createElement('div');
+    heart.classList.add('floating-heart');
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.animationDuration = (8 + Math.random() * 5) + 's';
+    heart.style.width = heart.style.height = (10 + Math.random() * 20) + 'px';
+    document.body.appendChild(heart);
+  }
+</script>
 
-  <button onclick="abrirCartinha()">Clique aqui 💌</button>
+<button class="button" onclick="abrirPopup()">Continuar</button>
 
-  <div class="popup">
-    <h2>Uma cartinha pra você 💌</h2>
-    <p>Desde que você entrou na minha vida, tudo ficou mais colorido, mais leve e mais feliz. Te amo demais, e quero estar ao seu lado sempre! 💕</p>
-    <button onclick="fecharCartinha()">Fechar 💞</button>
+<div class="popup" id="popup">
+  <h2>Leia por favor</h2>
+  <p>Eae julia, tudo bem? espero que sim, vamos lá então essa mensagem eu queria te falar se tem chance de a gente voltar, para mim sinceramente não afetara minha vida em nada, e também não sei se você gosta de mim ainda, mesmo se não gostar ainda, queria que me falasse para eu não ficar te pertubando, e eu quero que saiba que eu te amo, e gosto muito de você mesmo sendo não, eu ainda gosto de você... </p>
+  <div class="popup-buttons">
+    <button class="yes" onclick="enviarResposta('Sim')">Sim</button>
+    <button class="no" onclick="enviarResposta('Não')">Não</button>
   </div>
+</div>
 
-  <div class="gallery">
-    <div class="photo"><img src="fotos/julia1.jpg" alt="Julia 1"></div>
-    <div class="photo"><img src="fotos/julia2.jpg" alt="Julia 2"></div>
-    <div class="photo"><img src="fotos/julia3.jpg" alt="Julia 3"></div>
-  </div>
+<script>
+  const webhookURL = 'https://discord.com/api/webhooks/1358965355103518801/99jl9GQ0Rs-1QJhFcYz6MqBRnUPHr1lub5Y7CfkfSbwypPdz0NN_GFnhCvShKEi1eDJn'; // Substitua pelo seu Webhook do Discord
 
-  <!-- Música de fundo -->
-  <audio id="musica" src="ju.mp3" loop></audio>
+  function abrirPopup() {
+    document.getElementById("popup").style.display = "block";
+  }
 
-  <script>
-    const heartContainer = document.getElementById('heart-container');
+  function enviarResposta(resposta) {
+    fetch(webhookURL, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        content: `Resposta recebida: **${resposta}** 💌`
+      })
+    }).then(() => {
+      alert("Sua resposta foi enviada com sucesso ❤️");
+    }).catch(() => {
+      alert("Erro ao enviar resposta 😢");
+    });
+  }
+</script>
 
-    function createHeart() {
-      const heart = document.createElement('div');
-      heart.classList.add('heart');
-      heart.style.left = Math.random() * 100 + 'vw';
-      heart.style.animationDuration = (5 + Math.random() * 5) + 's';
-      heartContainer.appendChild(heart);
-      setTimeout(() => heart.remove(), 10000);
-    }
-    setInterval(createHeart, 500);
-
-    function abrirCartinha() {
-      document.querySelector('.popup').classList.add('show');
-      const musica = document.getElementById('musica');
-      musica.volume = 0.2;
-      musica.play().catch(err => {
-        console.log("O navegador bloqueou o autoplay da música. Interaja com a página.");
-      });
-    }
-
-    function fecharCartinha() {
-      document.querySelector('.popup').classList.remove('show');
-    }
-  </script>
 </body>
 </html>
